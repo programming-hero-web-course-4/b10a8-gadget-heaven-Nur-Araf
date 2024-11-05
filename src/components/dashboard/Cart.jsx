@@ -7,7 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Cart = () => {
-  window.title = "Dashboard - Gadget Heaven";
+  document.title = "Dashboard - Gadget Heaven";
   const [selectedProducts, setSelectedProducts] = useState([]);
   const { products, removeFromCart, setProducts } = useContext(AssetsContext);
   const modalRef = useRef(null);

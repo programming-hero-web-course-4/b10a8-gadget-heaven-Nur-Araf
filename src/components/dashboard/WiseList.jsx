@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
 const WiseList = () => {
-  window.title = "Dashboard - Gadget Heaven";
+  document.title = "Dashboard - Gadget Heaven";
   const [wishListProducts, setWishListProducts] = useState([]);
   const { wishlist, addToCart, removeFromFavorites } =
     useContext(AssetsContext);

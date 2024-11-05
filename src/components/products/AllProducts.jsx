@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { allProducts } from '../data/Products';
 
 const AllProducts = () => {
+  document.title = "Gadget Heaven";
   return (
     <div>
       {allProducts.length === 0 && (
