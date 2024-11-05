@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { mainProducts } from "../data/Products";
@@ -8,14 +8,23 @@ import { CiShoppingCart } from "react-icons/ci";
 import { AssetsContext } from "../store/Provider";
 import { toast, ToastContainer } from "react-toastify";
 const ShowingDetails = () => {
-  const { addToCart, addToFavorites } = useContext(AssetsContext);
+  const { addToCart, addToFavorites, wishlist, products } =
+    useContext(AssetsContext);
   
   const handleAddToCart = (id) => {
+    if (products.includes(id)) {
+      toast.error("Product already in cart!");
+      return;
+    }
     toast.success("Product added to cart!");
     addToCart(id);
   };
 
   const handleAddToFavorites = (id) => {
+    if (wishlist.includes(id)) {
+      toast.error("Product already in wishlist!");
+      return;
+    }
     toast.success("Product added to wishlist!");
     addToFavorites(id);
   };
@@ -361,12 +370,12 @@ const ShowingDetails = () => {
                     Add To Card{" "}
                     <CiShoppingCart className=" h-4 w-4 md:h-4 md:w-4 lg:h-6 lg:w-6" />
                   </button>
-                  <div
+                  <button
                     className="p-2 bg-white rounded-full border border-gray-300 w-fit cursor-pointer"
                     onClick={() => handleAddToFavorites(product.product_id)}
                   >
                     <CiHeart className="text-black h-4 w-4 md:h-4 md:w-4 lg:h-6 lg:w-6" />
-                  </div>
+                  </button>
                 </div>
               </div>
             </div>

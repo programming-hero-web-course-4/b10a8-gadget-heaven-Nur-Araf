@@ -3,7 +3,7 @@ import { AssetsContext } from "../store/Provider";
 import { mainProducts } from "../data/Products";
 import { MdDeleteOutline } from "react-icons/md";
 import "react-toastify/dist/ReactToastify.css";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const WiseList = () => {
   document.title = "Dashboard - Gadget Heaven";

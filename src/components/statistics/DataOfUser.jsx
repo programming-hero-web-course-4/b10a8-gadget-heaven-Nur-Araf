@@ -10,7 +10,7 @@ import {
   Legend,
 } from "recharts";
 
-// Generate fake data for user purchases over the last 28 days
+
 const generateFakeData = () => {
   const data = [];
   for (let i = 0; i < 28; i++) {
@@ -18,7 +18,7 @@ const generateFakeData = () => {
       date: new Date(
         Date.now() - (27 - i) * 24 * 60 * 60 * 1000
       ).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
-      purchases: Math.floor(Math.random() * 10) + 1, // Random number of purchases between 1 and 10
+      purchases: Math.floor(Math.random() * 10) + 1,
     });
   }
   return data;

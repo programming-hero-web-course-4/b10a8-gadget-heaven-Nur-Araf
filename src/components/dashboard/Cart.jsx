@@ -11,7 +11,7 @@ const Cart = () => {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const { products, removeFromCart, setProducts } = useContext(AssetsContext);
   const modalRef = useRef(null);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (selectedProducts.includes(products)) {
@@ -31,10 +31,10 @@ const Cart = () => {
 
   const handleBuy = () => {
     toast.success("Successfully purchased!");
-    setProducts([]); 
-    setSelectedProducts([]); 
+    setProducts([]);
+    setSelectedProducts([]);
     if (modalRef.current) {
-      modalRef.current.close(); 
+      modalRef.current.close();
     }
     navigate("/");
   };
@@ -50,6 +50,10 @@ const Cart = () => {
     0
   );
 
+  const roundedTotalPrice = Math.floor(totalPrice);
+
+  const formattedTotalPrice = roundedTotalPrice.toFixed(2);
+
   return (
     <div className="mt-3 md:mt-5 lg:mt-10 md:mx-10 lg:mx-20">
       <div className="flex justify-between items-center">
@@ -58,7 +62,7 @@ const Cart = () => {
         </h1>
         <div className="flex justify-between items-center gap-2 md:gap-4">
           <h1 className="font-medium text-[12px] md:text-[20px] md:font-bold lg:text-[24px]">
-            Total cost: ${totalPrice}
+            Total cost: ${formattedTotalPrice}
           </h1>
           <button
             className="text-[#9538E2] border text-[12px] md:text-base border-[#9538E2] rounded-[32px] px-[10px] md:px-[18px] lg:px-[22px] py-[6px] md:py-[11px] lg:py-[13px] cursor-pointer"
@@ -130,7 +134,7 @@ const Cart = () => {
                         Thanks for shopping with us.
                       </p>
                       <p className="text-center font-semibold text-[18px]">
-                        Total cost: ${totalPrice}
+                        Total cost: ${formattedTotalPrice}
                       </p>
                     </div>
                     <div className="modal-action flex justify-center">
