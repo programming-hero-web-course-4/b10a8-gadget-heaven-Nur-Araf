@@ -1,13 +1,19 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CiShoppingCart, CiHeart } from "react-icons/ci";
 import { Link, useLocation } from "react-router-dom";
 import { AssetsContext } from "../store/Provider";
 
 const LandingNav = () => {
   const { products, wishlist } = useContext(AssetsContext);
+  const [color, setColor] = useState(false);
   const location = useLocation();
 
-  // Function to check if a route is active
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setColor(true);
+    }
+  }, []);
+
   const isActive = (path) => location.pathname === path;
 
   const items = (
@@ -57,7 +63,11 @@ const LandingNav = () => {
   );
 
   return (
-    <div className="navbar bg-[#9538E2] text-white rounded-t-[32px] py-4 lg:px-12 xl:px-16">
+    <div
+      className={`navbar text-white rounded-t-[32px] py-4 lg:px-12 xl:px-16 ${
+        color ? "bg-[#9538E2]" : ""
+      }`}
+    >
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
