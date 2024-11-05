@@ -1,20 +1,48 @@
+import { useContext } from "react";
 import { CiShoppingCart } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { AssetsContext } from "../store/Provider";
 
 const Navbar = () => {
+  const { products, wishlist } = useContext(AssetsContext);
+  const location = useLocation();
+  const isActive = (path) => location.pathname === path;
+
   const items = (
     <>
       <li>
-        <Link to={"/"} className="text-[12px] md:text-[16px] text-white md:text-gray-700 font-bold hover:underline">Home</Link>
+        <Link
+          to={"/"}
+          className={`text-[12px] md:text-[16px] text-white lg:text-gray-700 font-bold hover:underline ${
+            isActive("/") ? "underline" : ""
+          }`}
+        >
+          Home
+        </Link>
       </li>
 
       <li>
-        <Link to={"/statistics"} className="text-[12px] md:text-[16px] text-white md:text-gray-700 font-bold hover:underline">Statistics</Link>
+        <Link
+          to={"/statistics"}
+          className={`text-[12px] md:text-[16px] text-white lg:text-gray-700 font-bold hover:underline ${
+            isActive("/statistics") ? "underline" : ""
+          }`}
+        >
+          Statistics
+        </Link>
       </li>
 
       <li>
-        <Link to={"/dashboard"} className="text-[12px] md:text-[16px] text-white md:text-gray-700 font-bold hover:underline">Dashboard</Link>
+        <Link
+          to={"/dashboard"}
+          className={`text-[12px] md:text-[16px] text-white lg:text-gray-700 font-bold hover:underline ${
+            isActive("/dashboard/cart") ? "underline" : ""
+          } ${
+            isActive("/dashboard/wishlist") ? "underline" : ""}`}
+        >
+          Dashboard
+        </Link>
       </li>
     </>
   );
@@ -55,12 +83,28 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{items}</ul>
       </div>
       <div className="navbar-end flex gap-4">
-        <div className="p-2 bg-white rounded-full border border-gray-300">
+        <Link
+          to={"/dashboard/cart"}
+          className="p-2 bg-white rounded-full border border-gray-300 relative"
+        >
           <CiShoppingCart className="text-black h-4 w-4 md:h-5 md:w-5 lg:h-7 lg:w-7" />
-        </div>
-        <div className="p-2 bg-white rounded-full border border-gray-300">
+          {products.length > 0 && (
+            <div className="absolute -top-1 -right-1 w-4 h-4 lg:w-5 lg:h-5 rounded-full bg-red-500 text-white text-[10px] flex justify-center items-center">
+              {products.length}
+            </div>
+          )}
+        </Link>
+        <Link
+          to={"/dashboard/wishlist"}
+          className="p-2 bg-white rounded-full border border-gray-300 relative"
+        >
           <CiHeart className="text-black h-4 w-4 md:h-5 md:w-5 lg:h-7 lg:w-7" />
-        </div>
+          {wishlist.length > 0 && (
+            <div className="absolute -top-1 -right-1 w-4 h-4 lg:w-5 lg:h-5 rounded-full bg-red-500 text-white text-[10px] flex justify-center items-center">
+              {wishlist.length}
+            </div>
+          )}
+        </Link>
       </div>
     </div>
   );

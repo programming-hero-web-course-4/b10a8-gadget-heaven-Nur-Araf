@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { mainProducts } from "../data/Products";
 import { CiHeart, CiStar } from "react-icons/ci";
 import Rating from "../Rating";
 import { CiShoppingCart } from "react-icons/ci";
+import { AssetsContext } from "../store/Provider";
 const ShowingDetails = () => {
+  const { addToCart, addToFavorites } = useContext(AssetsContext);
+  
+  const handleAddToCart = (id) => {
+    addToCart(id);
+  };
+
+  const handleAddToFavorites = (id) => {
+    addToFavorites(id);
+  };
   const { id } = useParams();
-  console.log(id);
   const product = mainProducts.find((product) => product.product_id === id);
-  console.log(product.uniq);
   return (
     <div>
       <div className="bg-[#9538E2] flex flex-col justify-center items-center gap-3 md:gap-6 py-2 md:py-6 lg:py-8 xl:py-16">
@@ -217,9 +225,9 @@ const ShowingDetails = () => {
                     <div className="text-[10px] md:text-[14px] lg:text-[18px] text-gray-700">
                       4. {product.specification.weight}
                     </div>
-                    <iv className="text-[10px] md:text-[14px] lg:text-[18px] text-gray-700">
+                    <div className="text-[10px] md:text-[14px] lg:text-[18px] text-gray-700">
                       5. {product.specification.dimensions}
-                    </iv>
+                    </div>
                     <div className="text-[10px] md:text-[14px] lg:text-[18px] text-gray-700">
                       6. {product.specification.compatibility}
                     </div>
@@ -342,14 +350,17 @@ const ShowingDetails = () => {
                   </h1>
                 </div>
                 <div className="flex items-center gap-3 pt-2 md:pt-4">
-                  <Link
-                    to={`/`}
-                    className="flex text-[10px] bg-[#9538E2] rounded-[32px] md:text-[14px] lg:text-[18px] font-semibold lg:font-bold text-white items-center gap-2 px-[12px] md:px-[16px] lg:px-[22px] py-[6px] md:py-[8px] lg:py-[11px] "
+                  <button
+                    className="flex text-[10px] bg-[#9538E2] rounded-[32px] md:text-[14px] lg:text-[18px] font-semibold lg:font-bold text-white items-center gap-2 px-[12px] md:px-[16px] lg:px-[22px] py-[6px] md:py-[8px] lg:py-[11px] cursor-pointer"
+                    onClick={() => handleAddToCart(product.product_id)}
                   >
                     Add To Card{" "}
                     <CiShoppingCart className=" h-4 w-4 md:h-4 md:w-4 lg:h-6 lg:w-6" />
-                  </Link>
-                  <div className="p-2 bg-white rounded-full border border-gray-300 w-fit">
+                  </button>
+                  <div
+                    className="p-2 bg-white rounded-full border border-gray-300 w-fit cursor-pointer"
+                    onClick={() => handleAddToFavorites(product.product_id)}
+                  >
                     <CiHeart className="text-black h-4 w-4 md:h-4 md:w-4 lg:h-6 lg:w-6" />
                   </div>
                 </div>
