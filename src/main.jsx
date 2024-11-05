@@ -8,7 +8,6 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage.jsx";
-import HomePage from "./components/landingPage/HomePage.jsx";
 import AllProducts from "./components/products/AllProducts.jsx";
 import Laptop from "./components/products/Laptop.jsx";
 import Phone from "./components/products/Phone.jsx";
@@ -22,7 +21,7 @@ import Dashboard from "./components/dashboard/Dashboard.jsx";
 import Cart from "./components/dashboard/Cart.jsx";
 import WiseList from "./components/dashboard/WiseList.jsx";
 import AssetsProvider from "./components/store/Provider.jsx";
-
+import Discount from "./components/discount/Discount.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -31,23 +30,36 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <HomePage />,
-        errorElement: <ErrorPage />,
-        children: [
-          { index: true, element: <Navigate to="Home" replace /> },
-          { path: "Home", element: <AllProducts /> },
-          { path: "Laptop", element: <Laptop /> },
-          { path: "Phone", element: <Phone /> },
-          { path: "Accessories", element: <Accessories /> },
-          { path: "Smart-Watches", element: <Watches /> },
-          { path: "MacBook", element: <Macbooks /> },
-          { path: "iPhone", element: <Iphone /> },
-        ],
+        element: <AllProducts />,
+      },
+      {
+        path: "Laptop",
+        element: <Laptop />,
+      },
+      {
+        path: "Phone",
+        element: <Phone />,
+      },
+      {
+        path: "Accessories",
+        element: <Accessories />,
+      },
+      {
+        path: "Smart-Watches",
+        element: <Watches />,
+      },
+      {
+        path: "MacBook",
+        element: <Macbooks />,
+      },
+      {
+        path: "iPhone",
+        element: <Iphone />,
       },
     ],
   },
   {
-    path: "/product/:id",
+    path: "/product-details/:id",
     element: <Details />,
   },
   {
@@ -71,12 +83,17 @@ const router = createBrowserRouter([
     path: "/statistics",
     element: <Statistics />,
   },
+  {
+    path: "/discount",
+    element: <Discount />,
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AssetsProvider>
-      <RouterProvider router={router} />
+      <RouterProvider router={router}>
+      </RouterProvider>
     </AssetsProvider>
   </StrictMode>
 );

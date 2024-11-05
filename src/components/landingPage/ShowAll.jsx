@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 
 const btns = [
-  { id: 1, name: "All Products", path: "Home" },
+  { id: 1, name: "All Products", path: "/" },
   { id: 2, name: "Laptop", path: "Laptop" },
   { id: 3, name: "Phone", path: "Phone" },
   { id: 4, name: "Accessories", path: "Accessories" },
@@ -12,17 +12,17 @@ const btns = [
 ];
 
 const ShowAll = () => {
- const [active, setActive] = useState(1);
-  
-useEffect(() => {
+  const [active, setActive] = useState(1);
+
+  useEffect(() => {
     const currentPath = window.location.pathname.replace("/", "");
     const currentBtn = btns.find((btn) => btn.path === currentPath);
     if (currentBtn) {
       setActive(currentBtn.id);
     } else {
-        setActive(1);
+      setActive(1);
     }
-})
+  });
   const handleClick = (id) => {
     setActive(id);
   };

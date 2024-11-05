@@ -16,7 +16,7 @@ const LandingNav = () => {
         <Link
           to="/"
           className={`text-[12px] md:text-[16px] font-bold hover:underline ${
-            isActive("/Home") ? "underline" : ""
+            isActive("/") ? "underline" : ""
           }`}
         >
           Home
@@ -40,6 +40,17 @@ const LandingNav = () => {
           }`}
         >
           Dashboard
+        </Link>
+      </li>
+
+      <li>
+        <Link
+          to="/discount"
+          className={`text-[12px] md:text-[16px] font-bold hover:underline ${
+            isActive("/dashboard") ? "underline" : ""
+          }`}
+        >
+          Discount
         </Link>
       </li>
     </>

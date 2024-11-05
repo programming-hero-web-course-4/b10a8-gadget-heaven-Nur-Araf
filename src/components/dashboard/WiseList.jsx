@@ -2,10 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { AssetsContext } from "../store/Provider";
 import { mainProducts } from "../data/Products";
 import { MdDeleteOutline } from "react-icons/md";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 const WiseList = () => {
+  window.title = "Dashboard - Gadget Heaven";
   const [wishListProducts, setWishListProducts] = useState([]);
-  const { wishlist, addToCart } = useContext(AssetsContext);
+  const { wishlist, addToCart, removeFromFavorites } =
+    useContext(AssetsContext);
 
   const handleAddToCart = (id) => {
     addToCart(id);
@@ -21,6 +25,8 @@ const WiseList = () => {
     setWishListProducts(storeProducts);
   }, [wishlist]);
   const handleDelete = (id) => {
+    toast.success("Product removed from wishlist");
+    removeFromFavorites(id);
     setWishListProducts(wishListProducts.filter((p) => p.product_id !== id));
   };
 
@@ -85,6 +91,7 @@ const WiseList = () => {
           </>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 };

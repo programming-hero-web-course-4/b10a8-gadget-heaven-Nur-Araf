@@ -1,11 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { AssetsContext } from "../store/Provider";
 import { mainProducts } from "../data/Products";
 import { MdDeleteOutline } from "react-icons/md";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Cart = () => {
+  window.title = "Dashboard - Gadget Heaven";
   const [selectedProducts, setSelectedProducts] = useState([]);
-  const { products } = useContext(AssetsContext);
+  const { products, removeFromCart, setProducts } = useContext(AssetsContext);
+  const modalRef = useRef(null);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     if (selectedProducts.includes(products)) {
@@ -18,7 +24,19 @@ const Cart = () => {
   }, [products]);
 
   const handleDelete = (id) => {
+    toast.success("Product removed from cart!");
+    removeFromCart(id);
     setSelectedProducts(selectedProducts.filter((p) => p.product_id !== id));
+  };
+
+  const handleBuy = () => {
+    toast.success("Successfully purchased!");
+    setProducts([]); 
+    setSelectedProducts([]); 
+    if (modalRef.current) {
+      modalRef.current.close(); 
+    }
+    navigate("/");
   };
 
   const handleShortByPrice = () => {
@@ -26,8 +44,6 @@ const Cart = () => {
     sortedProducts.sort((a, b) => b.price - a.price);
     setSelectedProducts(sortedProducts);
   };
-
- 
 
   const totalPrice = selectedProducts.reduce(
     (acc, product) => acc + product.price,
@@ -45,12 +61,15 @@ const Cart = () => {
             Total cost: ${totalPrice}
           </h1>
           <button
-            className="text-[#9538E2] border  text-[12px] md:text-base border-[#9538E2] rounded-[32px] px-[10px] md:px-[18px] lg:px-[22px] py-[6px] md:py-[11px] lg:py-[13px] cursor-pointer"
-            onClick={() => handleShortByPrice()}
+            className="text-[#9538E2] border text-[12px] md:text-base border-[#9538E2] rounded-[32px] px-[10px] md:px-[18px] lg:px-[22px] py-[6px] md:py-[11px] lg:py-[13px] cursor-pointer"
+            onClick={handleShortByPrice}
           >
             Sort by Price
           </button>
-          <button className="bg-[#9538E2] text-[12px] md:text-base text-white rounded-[32px] px-[10px] md:px-[20px] lg:px-[26px] py-[6px] md:py-[11px] lg:py-[13px] cursor-pointer">
+          <button
+            className="bg-[#9538E2] text-[12px] md:text-base text-white rounded-[32px] px-[10px] md:px-[20px] lg:px-[26px] py-[6px] md:py-[11px] lg:py-[13px] cursor-pointer"
+            onClick={() => document.getElementById("my_modal_5").showModal()}
+          >
             Purchase
           </button>
         </div>
@@ -98,11 +117,37 @@ const Cart = () => {
                     />
                   </div>
                 </div>
+                <dialog id="my_modal_5" className="modal" ref={modalRef}>
+                  <div className="modal-box">
+                    <div className="space-y-1 md:space-y-3">
+                      <div className="flex justify-center items-center">
+                        <img src="/assets/Group.png" alt="success" />
+                      </div>
+                      <h1 className="text-center font-bold text-[28px]">
+                        Payment Successful
+                      </h1>
+                      <p className="text-center font-medium">
+                        Thanks for shopping with us.
+                      </p>
+                      <p className="text-center font-semibold text-[18px]">
+                        Total cost: ${totalPrice}
+                      </p>
+                    </div>
+                    <div className="modal-action flex justify-center">
+                      <form method="dialog">
+                        <button className="btn" onClick={handleBuy}>
+                          Close
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </dialog>
               </div>
             ))}
           </>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 };

@@ -1,18 +1,22 @@
 import React, { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 import { mainProducts } from "../data/Products";
 import { CiHeart, CiStar } from "react-icons/ci";
 import Rating from "../Rating";
 import { CiShoppingCart } from "react-icons/ci";
 import { AssetsContext } from "../store/Provider";
+import { toast, ToastContainer } from "react-toastify";
 const ShowingDetails = () => {
   const { addToCart, addToFavorites } = useContext(AssetsContext);
   
   const handleAddToCart = (id) => {
+    toast.success("Product added to cart!");
     addToCart(id);
   };
 
   const handleAddToFavorites = (id) => {
+    toast.success("Product added to wishlist!");
     addToFavorites(id);
   };
   const { id } = useParams();
@@ -351,7 +355,7 @@ const ShowingDetails = () => {
                 </div>
                 <div className="flex items-center gap-3 pt-2 md:pt-4">
                   <button
-                    className="flex text-[10px] bg-[#9538E2] rounded-[32px] md:text-[14px] lg:text-[18px] font-semibold lg:font-bold text-white items-center gap-2 px-[12px] md:px-[16px] lg:px-[22px] py-[6px] md:py-[8px] lg:py-[11px] cursor-pointer"
+                    className="flex text-[10px] bg-[#9538E2] rounded-[32px] md:text-[14px] lg:text-[18px] font-semibold lg:font-bold text-white items-center gap-2 px-[12px] md:px-[16px] lg:px-[22px] py-[6px] md:py-[8px] lg:py-[11px] cursor-pointer hover:bg-white hover:text-[#9538E2] hover:border hover:border-[#9538E2]"
                     onClick={() => handleAddToCart(product.product_id)}
                   >
                     Add To Card{" "}
@@ -369,14 +373,9 @@ const ShowingDetails = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
 
 export default ShowingDetails;
-
-//  <img
-//    src="/assets/banner.jpg"
-//    alt="none"
-//    className="w-full h-full object-cover rounded-[32px]"
-//  />;

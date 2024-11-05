@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { macbook } from "../data/Products";
 
 const Macbooks = () => {
+  document.title = "Macbook - Gadget Heaven";
   return (
     <div>
       {macbook.length === 0 && (
@@ -34,7 +35,7 @@ const Macbooks = () => {
               </p>
               <div className="mt-4 md:mt-5 lg:mt-8">
                 <Link
-                  to={`/product/${item.product_id}`}
+                  to={`/product-details/${item.product_id}`}
                   className="rounded-[32px] text-[#9538E2] border-[#9538E2] border px-[12px] md:px-[16px] lg:px-[22px] py-[7px] md:py-[9px] lg:py-[13px] font-semibold text-[14px] md:text-[16px] lg:text-[18px]"
                 >
                   View Details

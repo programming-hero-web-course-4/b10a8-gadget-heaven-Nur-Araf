@@ -38,10 +38,20 @@ const Navbar = () => {
           to={"/dashboard"}
           className={`text-[12px] md:text-[16px] text-white lg:text-gray-700 font-bold hover:underline ${
             isActive("/dashboard/cart") ? "underline" : ""
-          } ${
-            isActive("/dashboard/wishlist") ? "underline" : ""}`}
+          } ${isActive("/dashboard/wishlist") ? "underline" : ""}`}
         >
           Dashboard
+        </Link>
+      </li>
+
+      <li>
+        <Link
+          to={"/discount"}
+          className={`text-[12px] md:text-[16px] text-white lg:text-gray-700 font-bold hover:underline ${
+            isActive("/discount") ? "underline" : ""
+          }`}
+        >
+          Discount
         </Link>
       </li>
     </>

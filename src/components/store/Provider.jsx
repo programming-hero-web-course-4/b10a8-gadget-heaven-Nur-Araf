@@ -15,6 +15,10 @@ export const AssetsProvider = ({ children }) => {
     setProducts((prevProducts) => [...prevProducts, item]);
   };
 
+  const removeFromCart = (item) => {
+    setProducts((prevProducts) => prevProducts.filter((i) => i !== item));
+  };
+
   const addToFavorites = (item) => {
     if (wishlist.includes(item)) {
       return;
@@ -22,9 +26,21 @@ export const AssetsProvider = ({ children }) => {
     setWishlist((prevWishlist) => [...prevWishlist, item]);
   };
 
+  const removeFromFavorites = (item) => {
+    setWishlist((prevWishlist) => prevWishlist.filter((i) => i !== item));
+  }
+
   return (
     <AssetsContext.Provider
-      value={{ products, addToCart, addToFavorites, wishlist }}
+      value={{
+        products,
+        addToCart,
+        addToFavorites,
+        wishlist,
+        removeFromCart,
+        removeFromFavorites,
+        setProducts,
+      }}
     >
       {children}
     </AssetsContext.Provider>

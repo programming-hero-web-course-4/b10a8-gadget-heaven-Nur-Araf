@@ -1,11 +1,11 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
-import { allProducts } from '../data/Products';
+import React from "react";
+import { Link } from "react-router-dom";
+import { discount } from "../data/Products";
 
-const AllProducts = () => {
+const OnDiscount = () => {
   return (
     <div>
-      {allProducts.length === 0 && (
+      {discount.length === 0 && (
         <div>
           <p className="text-center bg-white rounded md:text-[20px] text-[14px] font-semibold md:font-bold">
             No Product is Available
@@ -13,7 +13,7 @@ const AllProducts = () => {
         </div>
       )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-4 bg-[#F6F6F6]">
-        {allProducts.map((item) => (
+        {discount.map((item) => (
           <div
             key={item.product_id}
             className="p-2 md:p-3 bg-white shadow-md rounded-[16px]"
@@ -46,6 +46,6 @@ const AllProducts = () => {
       </div>
     </div>
   );
-}
+};
 
-export default AllProducts
+export default OnDiscount;
