@@ -1,0 +1,9 @@
+[build]
+  publish = "dist"  # Adjust this to your build folder (e.g., dist, build, or public)
+  # command = "npm run build"  # Uncomment and use this if you have a build script for your project
+
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+  force = true
